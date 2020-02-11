@@ -1,6 +1,28 @@
 import React from "react";
-import { View, StyleSheet } from 'react-native';
-import { VictoryBar, VictoryChart, VictoryContainer } from "victory-native";
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { VictoryBar, VictoryChart, VictoryZoomContainer } from "victory-native";
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <ScrollView horizontal={true}>
+      <VictoryChart 
+      containerComponent={
+        <VictoryZoomContainer/>
+      }
+      maxDomain={{ x: 100 }}
+      >
+        <VictoryBar
+          data={sampleData}
+          barWidth={20}
+          x="quarter"
+          y="earnings"
+        />
+      </VictoryChart>
+      </ScrollView>
+    )
+  }
+}
 
 const sampleData = [
   {quarter: 1, earnings: 13000},
@@ -44,25 +66,3 @@ const sampleData = [
   {quarter: 39, earnings: 12000},
   {quarter: 40, earnings: 18000}
 ];
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <View 
-      style={{
-        overflow:"scroll", 
-        minWidth: "100px"
-      }}>
-      <VictoryChart domainPadding={{ x: 40 }}>
-        <VictoryBar
-          data={sampleData}
-
-          barWidth={10}
-          x="quarter"
-          y="earnings"
-        />
-      </VictoryChart>
-      </View>
-    )
-  }
-}
